@@ -53,3 +53,11 @@ hold off
 %Diseño con SISOTOOL
 
 sisotool(Gd)
+
+%verificacion 
+%C %muestra el compensador importado de sisotool
+%F=feedback(C*Gd,1) % sistema de lazo cerrado
+%pole(F)
+%zero(F)
+%pzmap(F)
+%step(F) % respuesta al escalon
