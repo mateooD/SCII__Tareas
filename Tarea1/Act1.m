@@ -1,14 +1,14 @@
 %%Tarea 1 - Laboret
-%Se tiene para cada alumno en un archivo adjunto (PDF) una funciÃ³n de transferencia con polos
-%p1 y p2, probablemente un cero y una ganancia K, ademÃ¡s especificaciones de Sobrepaso, tiem-
-%po de respuesta 2%, y periodo de muestreo
+%Se tiene para cada alumno en un archivo adjunto (PDF) una funcion de transferencia con polos
+%p1 y p2, probablemente un cero y una ganancia K, ademas especificaciones de Sobrepaso, tiempo de 
+%respuesta 2%, y periodo de muestreo
 
 %Valores Alumno Diaz Mateo 
 % Ceros: -10 , polos: -2, -1, K: 5, Tm: 0.3
 %
-pkg load control
 
-%FunciÃ³n de transferencia continua G(s) lazo abierto
+
+%Funcion de transferencia continua G(s) lazo abierto
 G = zpk([-10],[-2 -1],[5])
 
 %Defino periodo de muestreo
@@ -31,7 +31,7 @@ title('Polos y ceros de G(z)')
 grid on
 
 
-Se multiplica por 10 el perÃ­odo  de muestreo, se obtiene la siguiente expresiÃ³n:
+%Se multiplica por 10 el periodo  de muestreo, se obtiene la siguiente expresion:
 
 Gd1 = c2d(G,10*Tm,'zoh')
 
@@ -58,15 +58,61 @@ grid on
 step(Gd1)
 title('Respuesta a entrada escalon de G(d1)')
 grid on
+ 
+%Comparacion 3 respuestas
+step(G, 'b')
+hold on
+step(Gd, 'r')
+step(Gd1, 'g')
+% Añadir títulos y etiquetas al gráfico
+title('Respuestas a entrada escalón')
+legend('G(s)', 'G(d)', 'G(d1)')
+grid on
 
 
-%Superponer 3 graficas -FALTA
 
 %% Analisis Sistema Discreto
-%Detrmino cantidad de polos
+%Detrmino cantidad de polos en el origen.
+
 pole(Gd)
 
+%Tipo 0 -> tiene ess -> Para el calculo KP frente a una rampa del mismo podemos aplicar
 
-step(Gd1)
-title('Respuesta a entrada escalon de G(d1)')
-grid on
+Kp=dcgain(Gd)
+
+%Comprobamos dicho error en donde cerramos el lazo de realimentacion con
+%ganancia 1
+
+F=feedback(Gd,1)
+step(F)
+title('Respuesta escalon sistema lazo cerrado')
+grid
+
+%Obtenemos ess y comparamos con dcgain
+ess=1/(Kp+1)
+dcgain(F)
+
+%Sabemos qque el sistema es de tipo 0, el error en estado estable para una
+%entrada tipo rampa tiende a infinito, es decir la salida diverfe para
+%entrada
+
+t=0:Tm:100*Tm % genera rampa
+lsim(F,t,t)
+title('Error estado estacionario Rampa')
+grid
+
+%%
+%Lugar de raices 
+rlocus(G)
+title('Lugar de raíces para G(s)')
+
+rlocus(Gd)
+title('Lugar de raíces para G_D(z)')
+
+Gmc=margin(G)
+Gmd=margin(Gd)
+
+%Estabilidad relativa al aumentar periodo de muestreo
+rlocus(Gd1) 
+title('Lugar de raíces para G_D(z1)')
+Gmd1=margin(Gd1)
