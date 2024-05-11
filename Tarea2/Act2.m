@@ -2,15 +2,18 @@
 %Partiendo de los datos de la tarea 1
 %S= 5 TR=4 Tm=0.3
 
-%continuo
+%FDT continuo
 G = zpk([-10],[-2 -1],[5])
 
-%discreto
+%FDT discreto
 Tm = 0.3;
 Gd = c2d(G,Tm, 'zoh')
 
-tR=4;
-S=5;
+% Requerimientos
+tR=4; %timpo 2% error
+S=5;  %sobrepasamiento
+
+%Obtencion parametros
 
 pzita = -log(S/100)/sqrt(pi^2+(log(S/100))^2)
 
@@ -54,10 +57,14 @@ hold off
 
 sisotool(Gd)
 
+%%testeo de git
+
 %verificacion 
-%C %muestra el compensador importado de sisotool
-%F=feedback(C*Gd,1) % sistema de lazo cerrado
-%pole(F)
-%zero(F)
-%pzmap(F)
-%step(F) % respuesta al escalon
+C %muestra el compensador importado de sisotool
+F=minreal(feedback(C*Gd,1)) % sistema de lazo cerrado
+poles=pole(F)
+zeros=zero(F)
+pzmap(F)
+step(F) % respuesta al escalon
+stepinfo(F)
+%minreal(F)
