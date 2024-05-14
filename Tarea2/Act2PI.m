@@ -69,6 +69,6 @@ step(F) % respuesta al escalon
 stepinfo(F)
 %minreal(F)
 
-
+plot(tout,yout(:,5))
 
 
