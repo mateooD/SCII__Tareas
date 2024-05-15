@@ -21,7 +21,7 @@ tD=2*pi/wd
 
 r=exp(-pzita*w0*Tm)
 
-omega = wd*Tm
+omega = rad2deg(wd*Tm)
 
 %muestras por ciclo de la frecuencia amortiguada
 
@@ -70,4 +70,3 @@ stepinfo(FPID)
 %%TEST SIMULINK
 T=0.3
 pid(C) %%valores de K constantes
-pgd=pole(Gd)
