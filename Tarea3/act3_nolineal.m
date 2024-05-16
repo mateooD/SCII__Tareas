@@ -6,7 +6,7 @@ C
 Kc = 0.5 % ganancia de C
 a = 2 % cero del controlador con signo invertido
 M = Kc % ganancia rele 
-T= K*Kc % histeresis
+T= K*Kc  % histeresis
 lineal = 0 % simula control lineal
 sim('bang_bang_hist_DI_PD')
 figure(1)
