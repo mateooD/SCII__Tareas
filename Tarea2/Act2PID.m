@@ -60,6 +60,9 @@ d=0.2292/atan(55) %distancia
 
 c2=0.7408-0.1476 %cero
 
+C
+
+
 FPID= minreal(feedback(C*Gd,1)) % sistema de lazo cerrado
 poles=pole(FPID)
 zeros=zero(FPID)
