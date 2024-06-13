@@ -70,6 +70,8 @@ pzmap(FPID)
 step(FPID) % respuesta al escalon
 stepinfo(FPID)
 
+
 %%TEST SIMULINK
-T=0.3
-pid(C) %%valores de K constantes
+T=0.30
+pid(C)
+

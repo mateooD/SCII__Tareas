@@ -68,7 +68,11 @@ pzmap(F)
 step(F) % respuesta al escalon
 stepinfo(F)
 %minreal(F)
+pid(C)
+Pgd=pole(Gd)
+Zgd=zero(Gd)
 
-plot(tout,yout(:,5))
-
+%%TEST SIMULINK
+T=0.3
+plot(tout,yout(:,1))
 
